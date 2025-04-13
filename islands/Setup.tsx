@@ -41,6 +41,11 @@ export default function Setup(props) {
       style="background-color: #08192D"
     >
       <div class="flex flex-col lg:flex-row items-center justify-center gap-24 mb-10 w-full max-w-6xl">
+
+        <div class="w-full max-w-md flex justify-center">
+          <img src="/logo.png" alt="TV Illustration" class="w-full h-auto" />
+        </div>
+
         <div class="relative flex flex-col items-center w-full max-w-md bg-[#1A4576] p-6 rounded-2xl shadow-xl">
           {uploading && (
             <div class="absolute inset-0 bg-[#1A4576]/90 flex flex-col items-center justify-center z-20">
@@ -126,10 +131,6 @@ export default function Setup(props) {
           <p class="mt-6 text-lg font-semibold animate-pulse text-center">
             Waiting for playlist...
           </p>
-        </div>
-
-        <div class="w-full max-w-md flex justify-center">
-          <img src="/logo.png" alt="TV Illustration" class="w-full h-auto" />
         </div>
       </div>
 
