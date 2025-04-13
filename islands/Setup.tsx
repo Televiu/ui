@@ -1,7 +1,11 @@
 import { h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 import { qrcode } from "@libs/qrcode";
-import { channelSignal, loadChannelsFromFile } from "../utils/channelStore.ts";
+import {
+  channelSignal,
+  loadChannelsFromFile,
+  loadChannelsFromLocalStorage,
+} from "../utils/channelStore.ts";
 
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
@@ -9,10 +13,24 @@ export default function Setup(props) {
   const [qrImage, setQrImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  const uploadMode = props.mode
+  const uploadMode = props.mode;
   const showQR = uploadMode === "qr" || uploadMode === "both" || !uploadMode;
   const showLocal = uploadMode === "local" || uploadMode === "both" || !uploadMode;
+
+  // Check localStorage for existing playlist
+  useEffect(() => {
+    loadChannelsFromLocalStorage();
+
+    requestAnimationFrame(() => {
+      if (channelSignal.value.length > 0) {
+        window.location.href = "/channels";
+      } else {
+        setLoading(false);
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const generateQR = async () => {
@@ -33,7 +51,18 @@ export default function Setup(props) {
     generateQR();
   }, [showQR]);
 
-  const isLoading = !qrImage && !error;
+  const isQRLoading = !qrImage && !error;
+
+  if (loading) {
+    return (
+      <div class="min-h-screen flex items-center justify-center bg-[#08192D] text-white">
+        <div class="flex flex-col items-center space-y-4">
+          <div class="h-16 w-16 border-4 border-white border-t-transparent rounded-full animate-spin" />
+          <p class="text-lg">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -54,11 +83,10 @@ export default function Setup(props) {
             </div>
           )}
 
-          {/* QR Upload Section */}
           {showQR && (
             <>
               <p class="text-lg font-medium mb-4 text-center">
-                {isLoading
+                {isQRLoading
                   ? "Generating QR code..."
                   : error
                   ? "Error"
@@ -66,18 +94,16 @@ export default function Setup(props) {
               </p>
 
               <div class="w-64 h-64 mb-4 flex items-center justify-center">
-                {isLoading
-                  ? (
-                    <div class="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin" />
-                  )
-                  : error
-                  ? <div class="text-red-400 text-center">{error}</div>
-                  : (
-                    <div
-                      class="w-full h-full"
-                      dangerouslySetInnerHTML={{ __html: qrImage! }}
-                    />
-                  )}
+                {isQRLoading ? (
+                  <div class="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin" />
+                ) : error ? (
+                  <div class="text-red-400 text-center">{error}</div>
+                ) : (
+                  <div
+                    class="w-full h-full"
+                    dangerouslySetInnerHTML={{ __html: qrImage! }}
+                  />
+                )}
               </div>
 
               <div class="text-sm text-gray-300 space-y-1 text-center mb-6">
@@ -88,7 +114,6 @@ export default function Setup(props) {
             </>
           )}
 
-          {/* Divider */}
           {showQR && showLocal && (
             <div class="w-full flex items-center my-4">
               <div class="flex-grow border-t border-gray-500" />
@@ -97,7 +122,6 @@ export default function Setup(props) {
             </div>
           )}
 
-          {/* Local Upload Section */}
           {showLocal && (
             <div class="flex flex-col items-center w-full">
               <input
