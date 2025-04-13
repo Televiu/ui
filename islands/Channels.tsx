@@ -175,6 +175,22 @@ export default function Channels() {
         </div>
       </div>
 
+
+    <div class="absolute top-6 left-6 z-50">
+    <button
+      title="Back to Setup"
+      class="w-10 h-10 flex items-center justify-center rounded-full text-white transition"
+      style="background-color: #1A4576"
+      onClick={() => {
+        if (confirm("Are you sure? This will clear the playlist and return to Setup.")) {
+          localStorage.removeItem("playlist");
+          window.location.href = "/";
+        }
+      }}
+    >
+      <i class="ri-logout-box-r-line text-xl"></i>
+    </button>
+  </div>
       <h2 class="text-2xl font-bold mb-4">All Channels</h2>
       <div ref={containerRef} class="flex flex-wrap gap-4 justify-center">
         {channelSignal.value.map((channel, index) => {
