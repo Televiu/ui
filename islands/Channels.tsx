@@ -1,4 +1,5 @@
 import { h } from "preact";
+import { asset } from "$fresh/runtime.ts";
 import { useEffect, useRef, useState } from "preact/hooks";
 import {
   channelSignal,
@@ -246,7 +247,7 @@ function LazyThumbnail({ src, alt }: { src: string; alt: string }) {
   return (
     <img
       ref={imgRef}
-      src={isVisible ? src : undefined}
+      src={isVisible ? asset(src) : undefined}
       alt={alt}
       class="absolute inset-0 w-full h-full object-cover opacity-40 bg-gray-800"
     />
