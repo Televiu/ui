@@ -5,15 +5,14 @@ import { channelSignal, loadChannelsFromFile } from "../utils/channelStore.ts";
 
 const sleep = (ms: number) => new Promise((res) => setTimeout(res, ms));
 
-export default function Setup() {
+export default function Setup(props) {
   const [qrImage, setQrImage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
 
-  const uploadMode = import.meta.env?.TELEVIU_UPLOAD_MODE;
+  const uploadMode = props.mode
   const showQR = uploadMode === "qr" || uploadMode === "both" || !uploadMode;
-  const showLocal = uploadMode === "local" || uploadMode === "both" ||
-    !uploadMode;
+  const showLocal = uploadMode === "local" || uploadMode === "both" || !uploadMode;
 
   useEffect(() => {
     const generateQR = async () => {
@@ -125,7 +124,7 @@ export default function Setup() {
           )}
 
           <p class="mt-6 text-lg font-semibold animate-pulse text-center">
-            Waiting for connection...
+            Waiting for playlist...
           </p>
         </div>
 
