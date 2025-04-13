@@ -75,7 +75,7 @@ export default function Player() {
         errorTimeout = setTimeout(() => {
           if (!video.paused && video.currentTime > 0) return;
           setError(true);
-        }, 10000);
+        }, 30000);
       } catch (err) {
         console.error("Error loading video:", err);
         setError(true);
