@@ -10,9 +10,9 @@ import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
 import * as $player from "./routes/player.tsx";
 import * as $Channels from "./islands/Channels.tsx";
+import * as $Index from "./islands/Index.tsx";
 import * as $Loader from "./islands/Loader.tsx";
 import * as $Player from "./islands/Player.tsx";
-import * as $Setup from "./islands/Setup.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -27,9 +27,9 @@ const manifest = {
   },
   islands: {
     "./islands/Channels.tsx": $Channels,
+    "./islands/Index.tsx": $Index,
     "./islands/Loader.tsx": $Loader,
     "./islands/Player.tsx": $Player,
-    "./islands/Setup.tsx": $Setup,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;
