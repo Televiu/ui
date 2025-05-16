@@ -1,0 +1,31 @@
+# fly.toml app configuration file generated for televiu on 2025-05-16T01:37:22Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'televiu'
+primary_region = 'gru'
+
+[build]
+
+[env]
+TELEVIU_TLS = true
+TELEVIU_SERVER_ADDRESS = 'server-televiu.fly.dev'
+TELEVIU_UI_ADDRESS = 'televiu.fly.dev'
+
+[processes]
+app = "run --allow-all ./main.ts"
+
+[http_service]
+internal_port = 8000
+force_https = true
+auto_stop_machines = 'stop'
+auto_start_machines = true
+min_machines_running = 0
+processes = ['app']
+
+[[vm]]
+memory = '512mb'
+cpu_kind = 'shared'
+cpus = 1
+memory_mb = 512
