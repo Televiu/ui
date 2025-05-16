@@ -6,13 +6,17 @@ import * as $_404 from "./routes/_404.tsx";
 import * as $_app from "./routes/_app.tsx";
 import * as $api_joke from "./routes/api/joke.ts";
 import * as $channels from "./routes/channels.tsx";
+import * as $controller from "./routes/controller.tsx";
 import * as $greet_name_ from "./routes/greet/[name].tsx";
 import * as $index from "./routes/index.tsx";
 import * as $player from "./routes/player.tsx";
+import * as $screen from "./routes/screen.tsx";
 import * as $Channels from "./islands/Channels.tsx";
+import * as $Controller from "./islands/Controller.tsx";
 import * as $Index from "./islands/Index.tsx";
 import * as $Loader from "./islands/Loader.tsx";
 import * as $Player from "./islands/Player.tsx";
+import * as $Screen from "./islands/Screen.tsx";
 import type { Manifest } from "$fresh/server.ts";
 
 const manifest = {
@@ -21,15 +25,19 @@ const manifest = {
     "./routes/_app.tsx": $_app,
     "./routes/api/joke.ts": $api_joke,
     "./routes/channels.tsx": $channels,
+    "./routes/controller.tsx": $controller,
     "./routes/greet/[name].tsx": $greet_name_,
     "./routes/index.tsx": $index,
     "./routes/player.tsx": $player,
+    "./routes/screen.tsx": $screen,
   },
   islands: {
     "./islands/Channels.tsx": $Channels,
+    "./islands/Controller.tsx": $Controller,
     "./islands/Index.tsx": $Index,
     "./islands/Loader.tsx": $Loader,
     "./islands/Player.tsx": $Player,
+    "./islands/Screen.tsx": $Screen,
   },
   baseUrl: import.meta.url,
 } satisfies Manifest;

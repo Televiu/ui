@@ -25,7 +25,7 @@ export default function Player() {
   };
 
   useEffect(() => {
-    const setup = async () => {
+    const setup = () => {
       try {
         loadChannelsFromLocalStorage();
         const video = videoRef.current!;
